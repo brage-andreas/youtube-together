@@ -1,0 +1,33 @@
+{
+	"name": "youtube-together",
+	"version": "1.0.0",
+	"description": "A Discord bot to launch the YouTube Together activity.",
+	"main": "./dist/index.js",
+	"type": "module",
+	"scripts": {
+		"deploy": "node dist/deploy.js",
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"predeploy": "npm run build",
+		"prestart": "npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/el-durango/youtube-together.git"
+	},
+	"author": "Drango",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/el-durango/youtube-together/issues"
+	},
+	"homepage": "https://github.com/el-durango/youtube-together#readme",
+	"dependencies": {
+		"discord.js": "^14.0.0-dev.1644408625.fe11ff5",
+		"dotenv": "^16.0.0",
+		"node-fetch": "^3.2.0"
+	},
+	"devDependencies": {
+		"discord-api-types": "^0.27.0",
+		"typescript": "^4.5.5"
+	}
+}
