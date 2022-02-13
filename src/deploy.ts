@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import fetch from "node-fetch";
+import { activities } from "./activities.js";
 
 dotenv.config();
 
@@ -14,16 +15,18 @@ const headers = {
 	Authorization: `Bot ${BOT_TOKEN}`
 };
 
-const body = JSON.stringify({
-	description: "Launch a YouTube Watch Together activity in your voice channel",
-	name: "youtube",
-	type: 1
-});
+const getStr = (name: string) => `${/^[aeiou]$/gi.test(name.trim().charAt(0)) ? "an" : "a"} ${name}`;
 
-const res = await fetch(url, { method: "POST", headers, body });
+const body = JSON.stringify(
+	activities.map((activity) => ({
+		description: `Launch ${getStr(activity.name)} activity in your voice channel`,
+		name: activity.commandName,
+		type: 1
+	}))
+);
+
+const res = await fetch(url, { method: "PUT", headers, body });
 
 console.log("Built commands:");
 console.log(`  ....OK: ${res.ok}`);
-console.log(`  Status: ${res.status}`);
-console.log(`  ..Text: ${res.statusText}`);
-console.log(`  ..Type: ${res.type}`);
+console.log(`  Status: ${res.status} ${res.statusText}`);
