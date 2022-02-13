@@ -3,6 +3,7 @@ import { APIInvite } from "discord.js/node_modules/discord-api-types";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 import { activities } from "./activities.js";
+import { getStr } from "./constants.js";
 
 dotenv.config();
 
@@ -49,8 +50,6 @@ client.on("ready", () => {
 });
 
 client.on("interactionCreate", async (intr) => {
-	const getStr = (name: string) => `${/^[aeiou]$/gi.test(name.trim().charAt(0)) ? "an" : "a"} ${name}`;
-
 	if (!intr.isChatInputCommand()) return;
 
 	await intr.deferReply();

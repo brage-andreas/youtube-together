@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 import { activities } from "./activities.js";
+import { getStr } from "./constants.js";
 
 dotenv.config();
 
@@ -14,8 +15,6 @@ const headers = {
 	"Content-Type": "application/json",
 	Authorization: `Bot ${BOT_TOKEN}`
 };
-
-const getStr = (name: string) => `${/^[aeiou]$/gi.test(name.trim().charAt(0)) ? "an" : "a"} ${name}`;
 
 const body = JSON.stringify(
 	activities.map((activity) => ({
