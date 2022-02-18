@@ -2,6 +2,7 @@ import { Client, IntentsBitField } from "discord.js";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 import { activities } from "./activities.js";
+import { getStr } from "./constants.js";
 dotenv.config();
 const { BOT_TOKEN, BOT_ID } = process.env;
 if (!BOT_TOKEN || !BOT_ID)
@@ -41,7 +42,6 @@ client.on("ready", () => {
     console.log(`In ${guilds} guilds with ${users} total members`);
 });
 client.on("interactionCreate", async (intr) => {
-    const getStr = (name) => `${/^[aeiou]$/gi.test(name.trim().charAt(0)) ? "an" : "a"} ${name}`;
     if (!intr.isChatInputCommand())
         return;
     await intr.deferReply();
@@ -69,7 +69,7 @@ client.on("interactionCreate", async (intr) => {
     });
     const invite = (await fetch(url, { method: "POST", headers, body })
         .then((res) => res.json())
-        .catch(console.log));
+        .catch(() => null));
     if (!invite?.code)
         return void intr.editReply("Something went wrong with creating the invite.");
     if (invite.code.toString().startsWith("500"))

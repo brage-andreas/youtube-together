@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 import { activities } from "./activities.js";
+import { getStr } from "./constants.js";
 dotenv.config();
 const { BOT_TOKEN, BOT_ID } = process.env;
 if (!BOT_TOKEN || !BOT_ID)
@@ -10,7 +11,6 @@ const headers = {
     "Content-Type": "application/json",
     Authorization: `Bot ${BOT_TOKEN}`
 };
-const getStr = (name) => `${/^[aeiou]$/gi.test(name.trim().charAt(0)) ? "an" : "a"} ${name}`;
 const body = JSON.stringify(activities.map((activity) => ({
     description: `Launch ${getStr(activity.name)} activity in your voice channel`,
     name: activity.commandName,
